@@ -7,7 +7,7 @@ import rules
 def generate_players(num:int) -> List[rules.Player]:
     player_list = []
     for i in range(num):
-        player_list.append(rules.Player("Player" + str(i), random.randint(0,1)) )
+        player_list.append(rules.Player("Mock Player" + str(i), random.randint(0,1)) )
     return player_list
 
 def generate_questionnaire(total_num:int, option_num:int, weight:float = 1) -> rules.Questionaire:

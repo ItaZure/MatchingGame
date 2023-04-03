@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import mock
 import excel_parser as ep
+import algorithm
 
 import time
 
@@ -26,7 +27,7 @@ if 'mock_pairs' not in st.session_state:
     st.session_state['mock_pairs'] = mock.algorithm.Pairs(st.session_state['mock_answersheets'])
 
 
-st.session_state['real_answersheets'] = []
+st.session_state['answersheets'] = st.session_state['mock_answersheets']
 
 st.title("""暖场游戏""")
 
@@ -46,9 +47,10 @@ st.markdown("""
 uploaded_file = st.file_uploader("上传你的腾讯答卷", type="csv",label_visibility="hidden")
 if uploaded_file is not None:
     csv_dataframe = pd.read_csv(uploaded_file)
+    st.session_state['raw_answersheets'] = csv_dataframe.iloc[:,11:23]
     TXQuestionnaire = ep.TXQuestionnaire(csv_dataframe)
-    st.session_state['real_answersheets'] = TXQuestionnaire.read_lines(csv_dataframe, st.session_state['mock_questionnaire'])
-
+    st.session_state['TXQuestionnaire'] = TXQuestionnaire
+    st.session_state['answersheets'] = TXQuestionnaire.read_lines(csv_dataframe, st.session_state['mock_questionnaire'])
 
 
 

@@ -2,6 +2,7 @@ from typing import List
 from collections.abc import Iterable
 
 
+
 # a question has a unique id, a number of options, and a category
 class Question(object):
     def __init__(self, option_num:int, weight:float = 1) -> None:
@@ -59,6 +60,9 @@ class AnswerSheet(object):
         return self.player
 
     __repr__ = __str__
+
+    def __len__(self) -> int:
+        return len(self.answers)
 
 
     def __iter__(self):

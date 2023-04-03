@@ -86,7 +86,8 @@ class Pairs(object):
         
         
 
-
+# PairsForOne is a list
+# any element is a dict of ((player_1, player_2), score), where player_1 is the owner of the PairsForOne
 class PairsForOne(Pairs):
     def __init__(self, answersheets:List[rules.AnswerSheet], spec:rules.AnswerSheet) -> None:
         super().__init__(answersheets)
@@ -113,8 +114,18 @@ class PairsForOne(Pairs):
             return self.pairs.index((player_1.name, player_2.name)) + 1
         except:
             return self.pairs.index((player_2.name, player_1.name)) + 1
-        
-    def top_pairs(self, number:int) -> List[tuple]:
-        self.sort_by_score()
-        return self.pairs[:number]
 
+    # list of all answersheets that get the highest score    
+    def top_pairs(self) -> List[tuple]:
+        self.sort_by_score()
+        top_pairs = [self.pairs[0]]
+        for pair in self.pairs[1:]:
+            if pair[1] == top_pairs[0][1]:
+                top_pairs.append(pair)
+            else:
+                break
+        
+        return top_pairs
+
+
+    
